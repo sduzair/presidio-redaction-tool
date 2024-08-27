@@ -7,12 +7,25 @@ from docx import Document
 
 def should_redact(entity, text):
     # Whitelist of words that should not be redacted
-    whitelist = ["Azure", "JupyterLab", "Git", "Matplotlib", "Gunicorn", "Tableau"]
+    whitelist = [
+        "Azure",
+        "JupyterLab",
+        "Git",
+        "Matplotlib",
+        "Gunicorn",
+        "Tableau",
+        "SAP",
+        "JupyterNotebook",
+        "Docker",
+        "Data Lake"
+    ]
 
     # Check if the entity text is in the whitelist
-    if (entity.entity_type == "LOCATION" or entity.entity_type == "PERSON") and text[
-        entity.start : entity.end
-    ] in whitelist:
+    if (
+        entity.entity_type == "LOCATION"
+        or entity.entity_type == "PERSON"
+        or entity.entity_type == "NRP"
+    ) and text[entity.start : entity.end] in whitelist:
         return False
 
     # Add more conditions here if needed
@@ -36,9 +49,9 @@ analyzer_results = analyzer.analyze(text=text, language="en")
 
 # Filter out DATE_TIME and IN_PAN entities
 filtered_results = [
-    result
-    for result in analyzer_results
-    if result.entity_type not in ["DATE_TIME", "IN_PAN"] and should_redact(result, text)
+    entity
+    for entity in analyzer_results
+    if entity.entity_type not in ["DATE_TIME", "IN_PAN"] and should_redact(entity, text)
 ]
 
 # Create a custom operator configuration
