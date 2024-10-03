@@ -17,7 +17,8 @@ def should_redact(entity, text):
         "SAP",
         "JupyterNotebook",
         "Docker",
-        "Data Lake"
+        "Data Lake",
+        "S3"
     ]
 
     # Check if the entity text is in the whitelist
@@ -25,6 +26,7 @@ def should_redact(entity, text):
         entity.entity_type == "LOCATION"
         or entity.entity_type == "PERSON"
         or entity.entity_type == "NRP"
+        or entity.entity_type == "US_DRIVER_LICENSE"
     ) and text[entity.start : entity.end] in whitelist:
         return False
 
