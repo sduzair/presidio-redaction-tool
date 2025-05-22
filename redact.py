@@ -18,7 +18,17 @@ def should_redact(entity, text):
         "JupyterNotebook",
         "Docker",
         "Data Lake",
-        "S3"
+        "S3",
+        "Bootstrap",
+        "useReducer",
+        "GraphQL",
+        "Express",
+        "GitHub",
+        "PyArrow",
+        "Parquet",
+        "AWS",
+        "MVVM",
+        "Node.js"
     ]
 
     # Check if the entity text is in the whitelist
